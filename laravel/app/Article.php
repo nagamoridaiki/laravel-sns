@@ -34,4 +34,10 @@ class Article extends Model
             //$userがnullであれば、falseを返す。
             : false;
     }
+
+    //いいね数をカウントするアクセサ
+    public function getCountLikesAttribute(): int
+    {
+        return $this->likes->count();
+    }
 }
