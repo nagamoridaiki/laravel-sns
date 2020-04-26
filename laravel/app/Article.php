@@ -40,4 +40,11 @@ class Article extends Model
     {
         return $this->likes->count();
     }
+
+    //記事モデルとタグモデルの関係は多対多
+    public function tags(): BelongsToMany
+    {
+        //今回は中間テーブルの名前がarticle_tagといった2つのモデル名の単数形をアルファベット順に結合しており、第二引数は省略可能
+        return $this->belongsToMany('App\Tag')->withTimestamps();
+    }
 }
