@@ -5,6 +5,8 @@ namespace App;
 use App\Mail\BareMail;
 use App\Notifications\PasswordResetNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -43,5 +45,48 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new PasswordResetNotification($token, new BareMail()));
+    }
+
+    public function articles(): HasMany
+    {
+        return $this->hasMany('App\Article');
+    }
+
+    //リレーション元のusersテーブルのidは、中間テーブルのfollowee_idと紐付く
+    //リレーション先のusersテーブルのidは、中間テーブルのfollower_idと紐付く
+    public function followers(): BelongsToMany
+    {
+        return $this->belongsToMany('App\User', 'follows', 'followee_id', 'follower_id')->withTimestamps();
+    }
+
+    //followersメソッドと第三・第四引数が逆になる。
+    public function followings(): BelongsToMany
+    {
+        return $this->belongsToMany('App\User', 'follows', 'follower_id', 'followee_id')->withTimestamps();
+    }
+
+    public function likes(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Article', 'likes')->withTimestamps();
+    }
+
+    //あるユーザーをフォロー中かどうか判定する
+    public function isFollowedBy(?User $user): bool
+    {
+        return $user
+            ? (bool)$this->followers->where('id', $user->id)->count()
+            : false;
+    }
+
+    public function getCountFollowersAttribute(): int
+    {
+        //このユーザーモデルのフォロワー
+        return $this->followers->count();
+    }
+ 
+    public function getCountFollowingsAttribute(): int
+    {
+        //
+        return $this->followings->count();
     }
 }
