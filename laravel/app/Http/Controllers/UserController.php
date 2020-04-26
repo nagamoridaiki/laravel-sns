@@ -19,6 +19,18 @@ class UserController extends Controller
         ]);
     }
 
+    public function likes(string $name)
+    {
+        $user = User::where('name', $name)->first();
+ 
+        $articles = $user->likes->sortByDesc('created_at');
+ 
+        return view('users.likes', [
+            'user' => $user,
+            'articles' => $articles,
+        ]);
+    }
+
     public function follow(Request $request, string $name)
     {
         //$nameの部分には、フォローされる側のユーザーの名前が入っている
