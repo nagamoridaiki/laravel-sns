@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Article;
+use App\Tag;
 use App\Http\Requests\ArticleRequest;
 
 class ArticleController extends Controller
@@ -30,6 +31,13 @@ class ArticleController extends Controller
         $article->fill($request->all());
         $article->user_id = $request->user()->id;
         $article->save();
+        //ArticleRequest.phpでpassedValidationメソッドによって、コレクションとなり、eachメソッドが使える
+        //第一引数のみ$tagNameとして設定。use ($article)とあるのは、クロージャの中の処理で変数$articleを使うため
+        $request->tags->each(function ($tagName) use ($article) {
+            //タグの登録にはfirstOrCreateメソッドでタグモデルの保存をする。
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $article->tags()->attach($tag);
+        });
         return redirect()->route('articles.index');
     }
 
