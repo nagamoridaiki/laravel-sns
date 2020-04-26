@@ -23,7 +23,14 @@ class ArticleController extends Controller
 
     public function create()
     {
-        return view('articles.create');    
+        $allTagNames = Tag::all()->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+ 
+        return view('articles.create', [
+            'allTagNames' => $allTagNames,
+        ]);
+           
     }
 
     public function store(ArticleRequest $request, Article $article)
@@ -47,15 +54,21 @@ class ArticleController extends Controller
             return ['text' => $tag->name];
         });
 
+        $allTagNames = Tag::all()->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
         return view('articles.edit', [
             'article' => $article,
             'tagNames' => $tagNames,
+            'allTagNames' => $allTagNames,
         ]); 
     }
 
     public function update(ArticleRequest $request, Article $article)
     {
         $article->fill($request->all())->save();
+        //記事更新処理でもタグの登録を行えるようにし、記事・タグの紐付けの登録と削除も行えるようにする
         $article->tags()->detach();
         $request->tags->each(function ($tagName) use ($article) {
             $tag = Tag::firstOrCreate(['name' => $tagName]);
