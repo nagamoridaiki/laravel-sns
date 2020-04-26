@@ -53,6 +53,12 @@ class User extends Authenticatable
         return $this->belongsToMany('App\User', 'follows', 'followee_id', 'follower_id')->withTimestamps();
     }
 
+    //followersメソッドと第三・第四引数が逆になる。
+    public function followings(): BelongsToMany
+    {
+        return $this->belongsToMany('App\User', 'follows', 'follower_id', 'followee_id')->withTimestamps();
+    }
+
     //あるユーザーをフォロー中かどうか判定する
     public function isFollowedBy(?User $user): bool
     {
