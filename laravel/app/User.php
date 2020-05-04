@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Article');
     }
 
+    public function comment(): HasMany
+    {
+        return $this->hasMany('App\Comment');
+    }
+
     //リレーション元のusersテーブルのidは、中間テーブルのfollowee_idと紐付く
     //リレーション先のusersテーブルのidは、中間テーブルのfollower_idと紐付く
     public function followers(): BelongsToMany
