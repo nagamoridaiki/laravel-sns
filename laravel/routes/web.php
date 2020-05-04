@@ -19,12 +19,15 @@ Route::prefix('articles')->name('articles.')->group(function () {
 Route::get('/tags/{name}', 'TagController@show')->name('tags.show');
 Route::prefix('users')->name('users.')->group(function () {
     Route::get('/{name}', 'UserController@show')->name('show');
-    Route::post('/{name}', 'UserController@store')->name('store');//顔画像アップロード
+    Route::post('/{name}', 'UserController@store')->name('store');
     Route::get('/{name}/likes', 'UserController@likes')->name('likes');
     Route::get('/{name}/followings', 'UserController@followings')->name('followings');
     Route::get('/{name}/followers', 'UserController@followers')->name('followers');
     Route::middleware('auth')->group(function () {
         Route::put('/{name}/follow', 'UserController@follow')->name('follow');
-        Route::delete('/{name}/follow', 'UserController@unfollow')->name('unfollow');
+        Route::delete('/{name}/follow', 'UserController@unfollow')->name('unfollow');    
     });
 });
+Route::get('/{name}/message', 'MessageController@index')->name('message');
+Route::post('/{name}/message', 'MessageController@send')->name('message.send');
+
