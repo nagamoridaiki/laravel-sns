@@ -1,11 +1,17 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Article;
 use App\Tag;
+use App\Comment;
+use App\User;
 use App\Http\Requests\ArticleRequest;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class ArticleController extends Controller
 {
@@ -86,8 +92,10 @@ class ArticleController extends Controller
 
     public function show(Article $article)
     {
-        return view('articles.show', ['article' => $article]);
-    }  
+        $comment_user_id = Auth::user()->id;
+        return view('articles.show', ['article' => $article , 'comment_user_id' => $comment_user_id ]);
+    }
+
 
     public function like(Request $request, Article $article)
     {

@@ -10,5 +10,6 @@ const app = new Vue({
     ArticleLike,
     ArticleTagsInput,
     FollowButton,
+
   }
 })
