@@ -4,10 +4,11 @@
 
 
 @section('content')
-    @include('nav') 
-  <div class="container">
-    @foreach($articles as $article)
-        @include('articles.card')
-    @endforeach
-  </div>
+    @include('nav')
+      @include('articles.tags')
+    <div class="col-md-10 col-xs-12">
+      @foreach($articles as $article)
+          @include('articles.card')
+      @endforeach
+    </div>
 @endsection
