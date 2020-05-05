@@ -20,4 +20,10 @@ class Tag extends Model
     {
         return $this->belongsToMany('App\Article')->withTimestamps();
     }
+
+    //コメント数をカウントするアクセサ
+    public function getCountTagAttribute(): int
+    {
+        return $this->count();
+    }
 }

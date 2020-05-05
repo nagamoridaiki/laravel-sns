@@ -22,10 +22,13 @@ class ArticleController extends Controller
 
     public function index()
     {
+        $tags = Tag::all()
+        ->load(['articles']);
+
         $articles = Article::all()->sortByDesc('created_at')
         ->load(['user', 'likes', 'tags']);
 
-        return view('articles.index', ['articles' => $articles]);
+        return view('articles.index', compact('articles','tags'));
     }
 
     public function create()
