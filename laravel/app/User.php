@@ -52,6 +52,16 @@ class User extends Authenticatable
         return $this->hasMany('App\Article');
     }
 
+    public function backgrounds(): HasMany
+    {
+        return $this->hasMany('App\Background');
+    }
+
+    public function skills(): HasMany
+    {
+        return $this->hasMany('App\Skill');
+    }
+
     public function comment(): HasMany
     {
         return $this->hasMany('App\Comment');
