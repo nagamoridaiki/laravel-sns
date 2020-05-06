@@ -108,6 +108,6 @@ class UserController extends Controller
         $users->image = $photo_path;
         $users->save();
 
-        return redirect('/');
+        return redirect('/')->with('flash_message', 'プロフィール画像を変更しました');
     }
 }

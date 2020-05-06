@@ -19,6 +19,9 @@ Route::prefix('articles')->name('articles.')->group(function () {
 Route::get('/tags/{name}', 'TagController@show')->name('tags.show');
 Route::prefix('users')->name('users.')->group(function () {
     Route::get('/{name}', 'UserController@show')->name('show');
+    //プロフィール編集
+    Route::get('/{name}/edit', 'ProfielController@index')->name('edit');
+
     Route::post('/{name}', 'UserController@store')->name('store');
     Route::get('/{name}/likes', 'UserController@likes')->name('likes');
     Route::get('/{name}/followings', 'UserController@followings')->name('followings');
@@ -32,3 +35,5 @@ Route::get('/{name}/message', 'MessageController@index')->name('message');
 Route::post('/{name}/message', 'MessageController@send')->name('message.send');
 
 Route::post('/article/comment', 'CommentController@create');
+Route::post('/profiel_edit/{name}', 'ProfielController@store');
+Route::post('/{name}/edit', 'ProfielController@index')->name('update');
