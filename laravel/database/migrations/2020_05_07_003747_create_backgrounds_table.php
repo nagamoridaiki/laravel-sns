@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBackground extends Migration
+class CreateBackgroundsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBackground extends Migration
      */
     public function up()
     {
-        Schema::create('background', function (Blueprint $table) {
+        Schema::create('backgrounds', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
             $table->foreign('user_id')
@@ -22,8 +22,10 @@ class CreateBackground extends Migration
                 ->onDelete('cascade');
             $table->string('title');
             $table->text('job_detail');
-            $table->date('start_month')->nullable();
-            $table->date('end_month')->nullable();
+            $table->integer('start_year')->nullable();
+            $table->integer('start_month')->nullable();
+            $table->integer('end_year')->nullable();
+            $table->integer('end_month')->nullable();
             $table->timestamps();
         });
     }
@@ -35,6 +37,6 @@ class CreateBackground extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('background');
+        Schema::dropIfExists('backgrounds');
     }
 }

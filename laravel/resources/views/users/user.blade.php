@@ -1,7 +1,6 @@
 <div class="card mt-3">
   <div class="card-body">
     <div class="d-flex flex-row">
-
       @if(Auth::id() === $user->id)
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
@@ -43,6 +42,30 @@
       </a>
     </h2>
   </div>
+  <div class="card-body"><h3>自己紹介</h3></div>
+  <div class="card-body">
+    {{ $user->self_introduction }}
+  </div>
+  <!--ここに経歴・実績を表示-->
+  <div class="card-body"><h3>経歴・実績</h3></div>
+  @foreach($backgrounds as $background)
+        <div class="card-body">
+          <div class="form-group col-md-9">
+              <label for="title">概要</label>
+                  <p class="form-control-static">{{ $background->title }}</p>
+          </div>
+          <div class="form-group col-md-9">
+              詳細:
+              <p class="form-control-static">{{ $background->job_detail }}</p>
+          </div>
+          <div class="form-group col-md-9">
+              <label for="self_introduction">期間</label>
+                  <p>{{ $background->start_year }}{{ $background->start_month }}〜{{ $background->end_year }}{{ $background->end_month }}</p>
+          </div>
+        </div>
+  @endforeach
+
+  
   <div class="card-body">
     <div class="card-text">
       <a href="{{ route('users.followings', ['name' => $user->name]) }}" class="text-muted">
@@ -59,3 +82,4 @@
     </div>
   </div>
 </div>
+

@@ -10,7 +10,9 @@
             {{ session('flash_message') }}
         </div>
     @endif
+    <div class="col-md-2 col-xs-12">
       @include('articles.tags')
+    </div>
     <div class="col-md-10 col-xs-12">
       @foreach($articles as $article)
           @include('articles.card')

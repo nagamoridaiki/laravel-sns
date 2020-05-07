@@ -10,7 +10,10 @@ class Background extends Model
     protected $fillable = [
         'title',
         'job_detail',
+        'user_id',
+        'start_year',
         'start_month',
+        'end_year',
         'end_month',
     ];
 

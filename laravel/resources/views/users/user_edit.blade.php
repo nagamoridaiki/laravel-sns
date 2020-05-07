@@ -4,17 +4,16 @@
 
 @section('content')
   @include('nav')
-  <div class="container">
-  <div class="container">
+    <div class="container">
         <div class="row justify-content-center" style="margin-bottom:10px;">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
                         プロフィール編集
+                        <a href="/background" class="right-side">>>経歴・実績を編集する</a>
                     </div>
-                    {{ $user }}
                     <div class="card-body">
-                        <form method="POST" action="/profiel_edit/`$user->name`".>
+                        <form method="POST" action="/profiel_edit/`$user->name`">
                             @csrf
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -39,7 +38,6 @@
                                     @endif
                                 </div>
                             </div>
-
                             <div class="form-row mb-1">
                                 <div class="form-group col-md-9">
                                     <label for="self_introduction">自己紹介</label>
@@ -47,22 +45,27 @@
                                         <p class="form-control-static">{{ old('self_introduction') }}</p>
                                         <input id="addressline1" type="hidden" name="self_introduction" value="{{ old('self_introduction') }}">
                                     @else
-                                        <textarea name="self_introduction" required class="form-control" rows="16">{{ $user->self_introduction }}</textarea>
+                                        <textarea name="self_introduction" required class="form-control" rows="10">{{ $user->self_introduction }}</textarea>
                                     @endif
                                 </div>
                             </div>
-
                             <div class="form-row">
                                 <div class="col-md-6">
                                     @if(Request::has('confirm'))
                                         <button type="submit" class="btn btn-primary" name="post">更新する</button>
                                         <button type="submit" class="btn btn-default" name="back">修正する</button>
                                     @else
-                                        <button type="submit" class="btn btn-primary" name="confirm">入力内容を確認する</button>
+                                        <div class="card-text">
+                                            <button type="submit" class="btn btn-block blue-gradient" name="confirm">入力内容を確認する</button>
+                                        </div>
                                     @endif
                                 </div>
                             </div>
                         </form>
+                        <div class="dropdown-divider"></div>
+                        <!--ここから　もし経歴・実績レコードが既にあれば-->
+                        <!--ここまで-->
+                        
                     </div>
                 </div>
             </div>
@@ -75,6 +78,11 @@
             </div>
         </div>
     </div>
-
-  </div>
 @endsection
+
+
+<style>
+.right-side{
+    float: right;
+}
+</style>
