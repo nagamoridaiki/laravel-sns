@@ -14,11 +14,16 @@ class UserController extends Controller
         $user = User::where('name', $name)->first()
         ->load(['articles.user', 'articles.likes', 'articles.tags']);
 
+        $backgrounds = Background::where('user_id',$user->id)
+        ->orderBy('id', 'asc')->get();
+
+
         $articles = $user->articles->sortByDesc('created_at');
  
         return view('users.show', [
             'user' => $user,
             'articles' => $articles,
+            'backgrounds' => $backgrounds,
         ]);
     }
 
@@ -28,10 +33,13 @@ class UserController extends Controller
         ->load(['likes.user', 'likes.likes', 'likes.tags']);
  
         $articles = $user->likes->sortByDesc('created_at');
+        $backgrounds = Background::where('user_id',$user->id)->orderBy('id', 'asc')->get();
+
  
         return view('users.likes', [
             'user' => $user,
             'articles' => $articles,
+            'backgrounds' => $backgrounds,
         ]);
     }
 
@@ -41,10 +49,12 @@ class UserController extends Controller
         ->load('followings.followers');
  
         $followings = $user->followings->sortByDesc('created_at');
+        $backgrounds = Background::where('user_id',$user->id)->orderBy('id', 'asc')->get();
  
         return view('users.followings', [
             'user' => $user,
             'followings' => $followings,
+            'backgrounds' => $backgrounds,
         ]);
     }
     
@@ -54,10 +64,13 @@ class UserController extends Controller
         ->load('followers.followers');
  
         $followers = $user->followers->sortByDesc('created_at');
+        $backgrounds = Background::where('user_id',$user->id)->orderBy('id', 'asc')->get();
+
  
         return view('users.followers', [
             'user' => $user,
             'followers' => $followers,
+            'backgrounds' => $backgrounds,
         ]);
     }
 
@@ -108,6 +121,6 @@ class UserController extends Controller
         $users->image = $photo_path;
         $users->save();
 
-        return redirect('/');
+        return redirect('/')->with('flash_message', 'プロフィール画像を変更しました');
     }
 }

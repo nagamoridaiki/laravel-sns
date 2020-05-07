@@ -17,7 +17,7 @@
       <div class="font-weight-lighter">{{ $article->created_at->format('Y/m/d H:i') }}</div>
     </div>
 
-  @if( Auth::id() === $article->user_id )
+    @if( Auth::id() === $article->user_id )
     <!-- dropdown -->
       <div class="ml-auto card-text">
         <div class="dropdown">
@@ -62,7 +62,6 @@
       </div>
       <!-- modal -->
     @endif
-
   </div>
   <div class="card-body pt-0">
     <h3 class="h4 card-title">
