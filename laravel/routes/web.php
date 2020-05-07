@@ -40,6 +40,5 @@ Route::get('/background', 'ProfielController@background_index')->name('backgroun
 Route::delete('/background_destroy', 'ProfielController@destroy')->name('background_destroy');
 Route::get('/background_edit', 'ProfielController@background_edit')->name('background_edit');
 Route::post('/background_update', 'ProfielController@update')->name('background_update');
-Route::get('/newbackground', 'ProfielController@background_create')->name('newbackground');
 Route::post('/newbackground', 'ProfielController@create')->name('create');
 
