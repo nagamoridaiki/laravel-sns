@@ -64,14 +64,7 @@ class ProfielController extends Controller
             'user'=>$user,
         ]);
     }
-
-    public function background_create(){
-        $user = Auth::user();
-        return view('users.newbackground', [
-            'user' => $user,
-        ]);
-    }
-
+    
     public function create(Request $request){
         $user = Auth::user();
         $background = new Background;

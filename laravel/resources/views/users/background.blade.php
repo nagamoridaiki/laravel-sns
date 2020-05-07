@@ -4,18 +4,22 @@
 
 @section('content')
     @include('nav')
-    @if(Session::has('flash_message'))  
-        <div class="alert alert-success">
-            {{ session('flash_message') }}
-        </div>
-    @endif
     <div class="col-md-8 col-xs-12">
-    <div class="card mt-3">
-        <div class="card-body">
-            <a href="/newbackground">>>経歴・実績を追加する</a>
+        <div class="card-header">
+            <a class="right-side" 
+                onclick="location.href='{{ route("users.edit", ['name' => Auth::user()->name]) }}'">
+                ＜＜基本プロフィールに戻る
+            </a>
+            <h4>経歴・実績</h4>
+            </div>
         </div>
-    </div>
-        @foreach($backgrounds as $background)
+        @if(Session::has('flash_message'))  
+            <div class="alert alert-success">
+                {{ session('flash_message') }}
+            </div>
+        @endif
+        <div class="col-md-8 col-xs-12">
+            @foreach($backgrounds as $background)
             <div class="card mt-3">
                 <div class="card-body">
                     <div class="ml-auto card-text left-side">
@@ -59,7 +63,6 @@
                         </div>
                     </div>
                 <!-- modal -->
-
                     <div class="form-row mb-1">
                         <div class="form-group col-md-9">
                             <label for="title">概要</label>
@@ -80,14 +83,56 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+            @endforeach
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5>経歴・実績を追加する</h5>
+                </div>
+                <div class="card-body">
+                    <div class="col-md-12">
+                        <form method="POST" action="/newbackground">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ $user->id }}">
+                            <div class="form-row mb-1">
+                                <div class="form-group col-md-9">
+                                    <label for="background_title">概要</label>
+                                    <input id="name" type="text" class="form-control" name="title" value="">
+                                </div>
+                            </div>
+                            <div class="form-row mb-1">
+                                <div class="form-group col-md-9">
+                                    詳細<textarea name="job_detail" required class="form-control" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-row mb-1">
+                                <div class="form-group col-md-12">
+                                    <div for="self_introduction">期間</div>
+                                    <input type="number" name="start_year" value="2020" ><input type="number" name="start_month" value="1">〜
+                                    <input type="number" name="end_year" value="2020" ><input type="number" name="end_month" value="1">
+                                </div>
+                            </div>
+                            <div class="card-text">
+                                <div class="col-md-10">
+                                    <button type="submit" class="btn btn-block blue-gradient" name="confirm">登録する</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
 @endsection
 
 <style>
     .left-side{
         float:right;
     }
+</style>
+
+<style>
+.right-side{
+    float: right;
+}
 </style>
 
