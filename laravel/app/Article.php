@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
 class Article extends Model
@@ -46,5 +47,16 @@ class Article extends Model
     {
         //今回は中間テーブルの名前がarticle_tagといった2つのモデル名の単数形をアルファベット順に結合しており、第二引数は省略可能
         return $this->belongsToMany('App\Tag')->withTimestamps();
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany('App\Comment');
+    }
+
+    //コメント数をカウントするアクセサ
+    public function getCountCommentAttribute(): int
+    {
+        return $this->comments->count();
     }
 }
