@@ -36,7 +36,12 @@
         <div class="dropdown-divider"></div>
         <button class="dropdown-item" type="button"
                 onclick="location.href='{{ route("users.edit", ["name" => Auth::user()->name]) }}'">
-          プロフィールを編集
+          基本プロフィールを編集
+        </button>
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item" type="button"
+                onclick="location.href='{{ route("background") }}'">
+          経歴・実績を編集
         </button>
         <div class="dropdown-divider"></div>
         <button class="dropdown-item" type="button"

@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-header">
                         プロフィール編集
-                        <a href="/background" class="right-side">>>経歴・実績を編集する</a>
+                        <a href="/" class="right-side">>>トップに戻る</a>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="/profiel_edit/`$user->name`">

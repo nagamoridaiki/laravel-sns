@@ -7,8 +7,8 @@
     <div class="col-md-8 col-xs-12">
         <div class="card-header">
             <a class="right-side" 
-                onclick="location.href='{{ route("users.edit", ['name' => Auth::user()->name]) }}'">
-                ＜＜基本プロフィールに戻る
+                onclick="location.href='{{ route("articles.index") }}'">
+                ＜＜トップに戻る
             </a>
             <h4>経歴・実績</h4>
             </div>
@@ -29,7 +29,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="{{ route('background_edit', ['background' => $background]) }}">
-                            <i class="fas fa-pen mr-1"></i>経歴を更新する
+                            <i class="fas fa-pen mr-1"></i>経歴を編集する
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" data-toggle="modal" data-target="#modal-delete-{{ $background->id }}">
