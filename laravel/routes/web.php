@@ -33,6 +33,8 @@ Route::prefix('users')->name('users.')->group(function () {
 });
 Route::get('/{name}/message', 'MessageController@index')->name('message');
 Route::post('/{name}/message', 'MessageController@send')->name('message.send');
+//メッセージ一覧
+Route::get('/{name}/message_list', 'MessageController@list_index')->name('message_list');
 Route::post('/article/comment', 'CommentController@create');
 Route::post('/profiel_edit/{name}', 'ProfielController@store');
 Route::post('/{name}/edit', 'ProfielController@index');
